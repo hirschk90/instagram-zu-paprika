@@ -458,6 +458,17 @@
                     <span style="font-size: 12px; font-weight: normal; color: #999;">Bearbeite den Text falls nötig</span>
                 </div>
                 <textarea id="rawText" class="raw-text-area" placeholder="Erkannter Text erscheint hier..."></textarea>
+                
+                <!-- Schnell-Einfügen Buttons -->
+                <div style="display: flex; gap: 8px; margin-top: 10px; margin-bottom: 10px;">
+                    <button type="button" class="button-secondary" onclick="insertAtCursor('Zutaten:\n')" style="flex: 1; padding: 8px; font-size: 13px;">
+                        📝 Zutaten
+                    </button>
+                    <button type="button" class="button-secondary" onclick="insertAtCursor('Zubereitung:\n')" style="flex: 1; padding: 8px; font-size: 13px;">
+                        👨‍🍳 Zubereitung
+                    </button>
+                </div>
+                
                 <div class="button-group">
                     <button type="button" class="button-secondary" onclick="reanalyzeText()">
                         🔄 Neu analysieren
@@ -545,8 +556,15 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="source">Quelle / URL</label>
-                    <input type="text" id="source" placeholder="z.B. Instagram-Link oder Autor">
+                    <label for="source">Quelle / Autor</label>
+                    <input type="text" id="source" placeholder="z.B. Chefkoch, @foodblogger, Omas Kochbuch" value="Instagram">
+                    <div class="hint">Name der Quelle (wird in Paprika angezeigt)</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="sourceUrl">Link zur Quelle</label>
+                    <input type="url" id="sourceUrl" placeholder="https://...">
+                    <div class="hint">Vollständige URL (klickbar in Paprika)</div>
                 </div>
                 
                 <div class="form-group">
@@ -792,6 +810,25 @@
             document.getElementById('rawTextContainer').classList.remove('visible');
         }
         
+        function insertAtCursor(text) {
+            const textarea = document.getElementById('rawText');
+            const startPos = textarea.selectionStart;
+            const endPos = textarea.selectionEnd;
+            const textBefore = textarea.value.substring(0, startPos);
+            const textAfter = textarea.value.substring(endPos);
+            
+            // Füge Text an Cursor-Position ein
+            textarea.value = textBefore + text + textAfter;
+            
+            // Setze Cursor hinter eingefügten Text
+            const newPos = startPos + text.length;
+            textarea.selectionStart = newPos;
+            textarea.selectionEnd = newPos;
+            
+            // Focus zurück auf Textarea
+            textarea.focus();
+        }
+        
         function analyzeAndFillRecipe(text) {
             // Einfache Heuristik um Rezept zu strukturieren
             const lines = text.split('\n').filter(line => line.trim().length > 0);
@@ -937,6 +974,7 @@
             const cookTime = document.getElementById('cookTime').value.trim();
             const categories = document.getElementById('categories').value.trim();
             const source = document.getElementById('source').value.trim();
+            const sourceUrl = document.getElementById('sourceUrl').value.trim();
             const notes = document.getElementById('notes').value.trim();
             
             // Validierung
@@ -952,7 +990,7 @@
             }
             
             // YML-Datei erstellen
-            const ymlContent = createYML(name, ingredients, directions, servings, prepTime, cookTime, categories, source, notes, imageBase64);
+            const ymlContent = createYML(name, ingredients, directions, servings, prepTime, cookTime, categories, source, sourceUrl, notes, imageBase64);
             
             // Share-Funktion nutzen
             await shareFile(ymlContent, name);
@@ -1001,7 +1039,7 @@
             });
         }
         
-        function createYML(name, ingredients, directions, servings, prepTime, cookTime, categories, source, notes, imageBase64) {
+        function createYML(name, ingredients, directions, servings, prepTime, cookTime, categories, source, sourceUrl, notes, imageBase64) {
             // YAML-Format für Paprika
             let yml = `name: ${name}\n`;
             
@@ -1028,6 +1066,10 @@
             
             if (source) {
                 yml += `source: ${source}\n`;
+            }
+            
+            if (sourceUrl) {
+                yml += `source_url: ${sourceUrl}\n`;
             }
             
             yml += `ingredients: |\n`;

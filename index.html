@@ -19,6 +19,7 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
+            padding-bottom: 60px; /* Extra Platz für iPhone Home-Indikator */
         }
         
         .container {
@@ -28,12 +29,28 @@
             border-radius: 20px;
             padding: 30px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideUp 0.4s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         h1 {
             color: #333;
             margin-bottom: 10px;
             font-size: 28px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .subtitle {
@@ -62,13 +79,14 @@
             border-radius: 10px;
             font-size: 16px;
             font-family: inherit;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
         }
         
         input[type="text"]:focus,
         textarea:focus {
             outline: none;
             border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
         
         textarea {
@@ -88,15 +106,17 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 18px;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
         
         .button:active {
             transform: scale(0.98);
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.4);
         }
         
         .button:disabled {
@@ -105,23 +125,44 @@
         }
         
         .success-message {
-            background: #4caf50;
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
             color: white;
             padding: 15px;
-            border-radius: 10px;
+            border-radius: 12px;
             margin-top: 20px;
             display: none;
             text-align: center;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            animation: slideDown 0.3s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .error-message {
-            background: #f44336;
+            background: linear-gradient(135deg, #f44336 0%, #e53935 100%);
             color: white;
             padding: 15px;
-            border-radius: 10px;
+            border-radius: 12px;
             margin-top: 20px;
             display: none;
             text-align: center;
+            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+            animation: shake 0.5s ease-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
         }
         
         .upload-area {
@@ -132,29 +173,39 @@
             margin-bottom: 30px;
             cursor: pointer;
             transition: all 0.3s;
-            background: #f8f9ff;
+            background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
         }
         
         .upload-area:hover {
-            background: #f0f2ff;
+            background: linear-gradient(135deg, #f0f2ff 0%, #e8ebff 100%);
             border-color: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
         }
         
         .upload-area.dragover {
-            background: #e8ebff;
+            background: linear-gradient(135deg, #e8ebff 0%, #dde0ff 100%);
             border-color: #764ba2;
             transform: scale(1.02);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.3);
         }
         
         .upload-icon {
             font-size: 48px;
             margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
         
         .upload-text {
             color: #667eea;
             font-weight: 600;
             margin-bottom: 5px;
+            font-size: 16px;
         }
         
         .upload-hint {
@@ -180,17 +231,19 @@
         }
         
         .ocr-status {
-            background: #2196F3;
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
             color: white;
             padding: 15px;
-            border-radius: 10px;
+            border-radius: 12px;
             margin-bottom: 20px;
             display: none;
             text-align: center;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
         }
         
         .ocr-status.processing {
             display: block;
+            animation: slideDown 0.3s ease-out;
         }
         
         .progress-bar {
@@ -206,33 +259,39 @@
             height: 100%;
             background: white;
             width: 0%;
-            transition: width 0.3s;
+            transition: width 0.3s ease;
             border-radius: 4px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
         
         .mode-tabs {
             display: flex;
             gap: 10px;
             margin-bottom: 30px;
+            background: #f5f5f5;
+            padding: 5px;
+            border-radius: 12px;
         }
         
         .mode-tab {
             flex: 1;
             padding: 12px;
-            background: #f5f5f5;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s;
             font-weight: 600;
             font-size: 14px;
+            color: #666;
         }
         
         .mode-tab.active {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            transform: translateY(-1px);
         }
         
         .mode-content {
@@ -241,6 +300,115 @@
         
         .mode-content.active {
             display: block;
+        }
+        
+        .raw-text-container {
+            background: #f8f9ff;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .raw-text-container.visible {
+            display: block;
+        }
+        
+        .raw-text-label {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .raw-text-area {
+            width: 100%;
+            min-height: 150px;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 13px;
+            resize: vertical;
+            background: white;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .button-secondary {
+            flex: 1;
+            padding: 12px;
+            background: #f5f5f5;
+            color: #333;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .button-secondary:hover {
+            background: #e8e8e8;
+            border-color: #d0d0d0;
+        }
+        
+        .button-secondary:active {
+            transform: scale(0.98);
+        }
+        
+        /* Responsive Design für kleine Bildschirme */
+        @media (max-width: 640px) {
+            body {
+                padding: 10px;
+                padding-bottom: 40px;
+            }
+            
+            .container {
+                padding: 20px;
+                border-radius: 15px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .subtitle {
+                font-size: 13px;
+            }
+            
+            .upload-area {
+                padding: 30px 15px;
+            }
+            
+            .upload-icon {
+                font-size: 40px;
+            }
+            
+            input[type="text"],
+            textarea {
+                font-size: 16px; /* Verhindert Zoom auf iOS */
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .button-secondary {
+                width: 100%;
+            }
+        }
+        
+        /* Dark Mode Support (optional) */
+        @media (prefers-color-scheme: dark) {
+            /* Für später, wenn gewünscht */
         }
     </style>
 </head>
@@ -262,8 +430,8 @@
         <!-- OCR Modus -->
         <div id="ocrMode" class="mode-content active">
             <div class="upload-area" id="uploadArea" onclick="document.getElementById('imageInput').click()">
-                <div class="upload-icon">📷</div>
-                <div class="upload-text">Screenshot hochladen</div>
+                <div class="upload-icon">📄</div>
+                <div class="upload-text">Screenshot für Texterkennung</div>
                 <div class="upload-hint">Klicken oder Bild hierher ziehen</div>
             </div>
             
@@ -272,7 +440,7 @@
             <div class="preview-container" id="previewContainer">
                 <img id="previewImage" class="preview-image" alt="Vorschau">
                 <button type="button" class="button" onclick="removeImage()" style="background: #f44336;">
-                    🗑️ Bild entfernen
+                    🗑️ Screenshot entfernen
                 </button>
             </div>
             
@@ -280,6 +448,23 @@
                 <div id="ocrText">📝 Texterkennung läuft...</div>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            
+            <!-- Rohtext-Vorschau und Bearbeitung -->
+            <div class="raw-text-container" id="rawTextContainer">
+                <div class="raw-text-label">
+                    <span>📄 Erkannter Text</span>
+                    <span style="font-size: 12px; font-weight: normal; color: #999;">Bearbeite den Text falls nötig</span>
+                </div>
+                <textarea id="rawText" class="raw-text-area" placeholder="Erkannter Text erscheint hier..."></textarea>
+                <div class="button-group">
+                    <button type="button" class="button-secondary" onclick="reanalyzeText()">
+                        🔄 Neu analysieren
+                    </button>
+                    <button type="button" class="button-secondary" onclick="hideRawText()">
+                        ✓ Fertig
+                    </button>
                 </div>
             </div>
         </div>
@@ -314,6 +499,62 @@
                 <div class="hint">Beschreibe die Schritte zur Zubereitung</div>
             </div>
             
+            <!-- Optionale Felder -->
+            <div style="margin: 30px 0; padding-top: 20px; border-top: 2px solid #e0e0e0;">
+                <h3 style="color: #666; font-size: 16px; margin-bottom: 20px;">📝 Optionale Angaben</h3>
+                
+                <!-- Foto des Gerichts -->
+                <div class="form-group">
+                    <label>📸 Foto des Gerichts</label>
+                    <div class="upload-area" id="photoUploadArea" onclick="document.getElementById('photoInput').click()" style="padding: 30px 15px; margin-bottom: 15px;">
+                        <div class="upload-icon" style="font-size: 36px; margin-bottom: 10px;">🍽️</div>
+                        <div class="upload-text" style="font-size: 14px;">Foto hochladen (optional)</div>
+                        <div class="upload-hint">Wird im Paprika-Rezept angezeigt</div>
+                    </div>
+                    <input type="file" id="photoInput" accept="image/*" style="display: none;">
+                    
+                    <div class="preview-container" id="photoPreviewContainer" style="display: none;">
+                        <img id="photoPreviewImage" class="preview-image" alt="Foto-Vorschau" style="max-height: 200px;">
+                        <button type="button" class="button-secondary" onclick="removePhoto()" style="background: #f44336; color: white; margin-top: 10px;">
+                            🗑️ Foto entfernen
+                        </button>
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="servings">Portionen</label>
+                        <input type="text" id="servings" placeholder="z.B. 4">
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="prepTime">Zubereitungszeit</label>
+                        <input type="text" id="prepTime" placeholder="z.B. 15 min">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cookTime">Kochzeit</label>
+                    <input type="text" id="cookTime" placeholder="z.B. 30 min">
+                </div>
+                
+                <div class="form-group">
+                    <label for="categories">Kategorien</label>
+                    <input type="text" id="categories" placeholder="z.B. Hauptgericht, Italienisch, Pasta">
+                    <div class="hint">Mehrere Kategorien mit Komma trennen</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="source">Quelle / URL</label>
+                    <input type="text" id="source" placeholder="z.B. Instagram-Link oder Autor">
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes">Notizen</label>
+                    <textarea id="notes" placeholder="Zusätzliche Tipps, Variationen, persönliche Anmerkungen..."></textarea>
+                </div>
+            </div>
+            
             <button type="submit" class="button" id="shareButton">
                 📤 Als YML-Datei teilen
             </button>
@@ -331,6 +572,8 @@
     <script>
         let currentMode = 'ocr';
         let recognizedText = '';
+        let recipePhoto = null; // Foto des Gerichts für YML-Export
+        let screenshotForOCR = null; // Screenshot nur für OCR
         
         // Modus wechseln
         function switchMode(mode) {
@@ -399,6 +642,9 @@
                 return;
             }
             
+            // Screenshot nur für OCR speichern
+            screenshotForOCR = file;
+            
             // Vorschau anzeigen
             const reader = new FileReader();
             reader.onload = (e) => {
@@ -420,6 +666,67 @@
             document.getElementById('ingredients').value = '';
             document.getElementById('directions').value = '';
             recognizedText = '';
+            screenshotForOCR = null;
+        }
+        
+        // Handler für Gericht-Foto Upload
+        document.getElementById('photoInput').addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handlePhotoUpload(e.target.files[0]);
+            }
+        });
+        
+        // Drag & Drop für Foto-Upload
+        const photoUploadArea = document.getElementById('photoUploadArea');
+        
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            photoUploadArea.addEventListener(eventName, preventDefaults, false);
+        });
+        
+        ['dragenter', 'dragover'].forEach(eventName => {
+            photoUploadArea.addEventListener(eventName, () => {
+                photoUploadArea.classList.add('dragover');
+            });
+        });
+        
+        ['dragleave', 'drop'].forEach(eventName => {
+            photoUploadArea.addEventListener(eventName, () => {
+                photoUploadArea.classList.remove('dragover');
+            });
+        });
+        
+        photoUploadArea.addEventListener('drop', (e) => {
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handlePhotoUpload(files[0]);
+            }
+        });
+        
+        function handlePhotoUpload(file) {
+            // Validierung
+            if (!file.type.startsWith('image/')) {
+                showError('Bitte wähle eine Bilddatei aus.');
+                return;
+            }
+            
+            // Foto für YML-Export speichern
+            recipePhoto = file;
+            
+            // Vorschau anzeigen
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('photoPreviewImage').src = e.target.result;
+                document.getElementById('photoPreviewContainer').style.display = 'block';
+                document.getElementById('photoUploadArea').style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        function removePhoto() {
+            document.getElementById('photoPreviewContainer').style.display = 'none';
+            document.getElementById('photoUploadArea').style.display = 'block';
+            document.getElementById('photoInput').value = '';
+            recipePhoto = null;
         }
         
         async function performOCR(file) {
@@ -447,21 +754,42 @@
                 
                 recognizedText = text;
                 
+                // Rohtext anzeigen
+                document.getElementById('rawText').value = text;
+                document.getElementById('rawTextContainer').classList.add('visible');
+                
                 // Text analysieren und in Felder aufteilen
                 analyzeAndFillRecipe(text);
                 
-                ocrText.textContent = '✅ Texterkennung abgeschlossen!';
+                ocrText.textContent = '✅ Texterkennung abgeschlossen! Überprüfe den erkannten Text.';
                 progressFill.style.width = '100%';
                 
                 setTimeout(() => {
                     ocrStatus.classList.remove('processing');
-                }, 2000);
+                }, 3000);
                 
             } catch (error) {
                 console.error('OCR Error:', error);
                 showError('Texterkennung fehlgeschlagen. Bitte versuche es erneut.');
                 ocrStatus.classList.remove('processing');
             }
+        }
+        
+        function reanalyzeText() {
+            // Text aus dem Textarea holen (falls manuell bearbeitet)
+            const editedText = document.getElementById('rawText').value;
+            if (editedText.trim().length === 0) {
+                showError('Der Text ist leer. Bitte füge Text hinzu.');
+                return;
+            }
+            
+            // Neu analysieren
+            analyzeAndFillRecipe(editedText);
+            showSuccess('Text wurde neu analysiert!');
+        }
+        
+        function hideRawText() {
+            document.getElementById('rawTextContainer').classList.remove('visible');
         }
         
         function analyzeAndFillRecipe(text) {
@@ -473,27 +801,33 @@
                 return;
             }
             
-            // Erster nicht-leerer Text als Name
+            // Erster nicht-leerer Text als Name (oft der Titel)
             const name = lines[0].trim();
             document.getElementById('name').value = name;
             
-            // Restlichen Text als Zutaten/Anleitung
+            // Restlichen Text analysieren
             const restText = lines.slice(1).join('\n');
-            
-            // Versuche Zutaten und Anleitung zu trennen
             const lowerText = restText.toLowerCase();
             
             let ingredients = '';
             let directions = '';
             
-            // Suche nach typischen Trennwörtern
-            const directionKeywords = ['zubereitung', 'anleitung', 'schritte', 'durchführung', 'so geht', 'ablauf'];
-            const ingredientKeywords = ['zutaten', 'ingredienzen', 'du brauchst'];
+            // Erweiterte Suche nach Trennwörtern
+            const directionKeywords = [
+                'zubereitung', 'anleitung', 'schritte', 'durchführung', 'so geht', 'ablauf',
+                'preparation', 'instructions', 'steps', 'method', 'how to',
+                'und so wird', 'so machst du', 'zubereiten', 'kochen'
+            ];
+            
+            const ingredientKeywords = [
+                'zutaten', 'ingredienzen', 'du brauchst', 'benötigt', 'ingredients',
+                'was du brauchst', 'dafür brauchst', 'einkaufsliste', 'für das rezept'
+            ];
             
             let ingredientsStart = -1;
             let directionsStart = -1;
             
-            // Finde Positionen
+            // Finde Positionen der Schlüsselwörter
             directionKeywords.forEach(keyword => {
                 const pos = lowerText.indexOf(keyword);
                 if (pos !== -1 && (directionsStart === -1 || pos < directionsStart)) {
@@ -508,7 +842,7 @@
                 }
             });
             
-            // Teile den Text auf
+            // Teile den Text intelligent auf
             if (ingredientsStart !== -1 && directionsStart !== -1) {
                 if (ingredientsStart < directionsStart) {
                     ingredients = restText.substring(ingredientsStart, directionsStart).trim();
@@ -522,19 +856,71 @@
             } else if (directionsStart !== -1) {
                 directions = restText.substring(directionsStart).trim();
             } else {
-                // Fallback: Alles als Zutaten
-                ingredients = restText;
+                // Fallback: Versuche anhand von Struktur zu erkennen
+                // Zeilen mit Mengenangaben = wahrscheinlich Zutaten
+                // Nummerierte/längere Zeilen = wahrscheinlich Anleitung
+                const textLines = restText.split('\n');
+                let foundDivider = false;
+                let tempIngredients = [];
+                let tempDirections = [];
+                
+                textLines.forEach(line => {
+                    const trimmed = line.trim();
+                    if (!trimmed) return;
+                    
+                    // Wenn Zeile mit Zahl + . oder ) beginnt = Anleitung
+                    if (/^\d+[\.)]\s/.test(trimmed)) {
+                        foundDivider = true;
+                        tempDirections.push(trimmed);
+                    }
+                    // Wenn Zeile Mengenangabe enthält = Zutat
+                    else if (/\d+\s*(g|kg|ml|l|tl|el|tasse|cup|prise|stück|stk)/i.test(trimmed) && !foundDivider) {
+                        tempIngredients.push(trimmed);
+                    }
+                    // Sonst nach Position
+                    else if (!foundDivider) {
+                        tempIngredients.push(trimmed);
+                    } else {
+                        tempDirections.push(trimmed);
+                    }
+                });
+                
+                ingredients = tempIngredients.join('\n');
+                directions = tempDirections.join('\n');
             }
             
-            // Entferne Überschriften
-            ingredients = ingredients.replace(/^(zutaten|ingredienzen|du brauchst):?/i, '').trim();
-            directions = directions.replace(/^(zubereitung|anleitung|schritte|durchführung|so geht|ablauf):?/i, '').trim();
+            // Entferne Überschriften aus den Texten
+            const cleanKeywords = [...ingredientKeywords, ...directionKeywords].join('|');
+            const cleanRegex = new RegExp(`^(${cleanKeywords}):?\\s*`, 'i');
             
+            ingredients = ingredients.replace(cleanRegex, '').trim();
+            directions = directions.replace(cleanRegex, '').trim();
+            
+            // Fülle Formularfelder
             document.getElementById('ingredients').value = ingredients;
             document.getElementById('directions').value = directions;
             
-            // Info anzeigen
-            showSuccess('Text erkannt! Bitte überprüfe und korrigiere die Felder.');
+            // Versuche zusätzliche Informationen zu erkennen
+            tryExtractAdditionalInfo(lowerText);
+        }
+        
+        function tryExtractAdditionalInfo(text) {
+            // Portionen erkennen
+            const servingsMatch = text.match(/(\d+)\s*(portionen|personen|servings|serves)/i);
+            if (servingsMatch && !document.getElementById('servings').value) {
+                document.getElementById('servings').value = servingsMatch[1];
+            }
+            
+            // Zeiten erkennen
+            const prepTimeMatch = text.match(/zubereitungszeit:?\s*(\d+\s*min)/i);
+            if (prepTimeMatch && !document.getElementById('prepTime').value) {
+                document.getElementById('prepTime').value = prepTimeMatch[1];
+            }
+            
+            const cookTimeMatch = text.match(/kochzeit:?\s*(\d+\s*min)/i);
+            if (cookTimeMatch && !document.getElementById('cookTime').value) {
+                document.getElementById('cookTime').value = cookTimeMatch[1];
+            }
         }
         
         document.getElementById('recipeForm').addEventListener('submit', async function(e) {
@@ -545,22 +931,105 @@
             const ingredients = document.getElementById('ingredients').value.trim();
             const directions = document.getElementById('directions').value.trim();
             
+            // Optionale Felder
+            const servings = document.getElementById('servings').value.trim();
+            const prepTime = document.getElementById('prepTime').value.trim();
+            const cookTime = document.getElementById('cookTime').value.trim();
+            const categories = document.getElementById('categories').value.trim();
+            const source = document.getElementById('source').value.trim();
+            const notes = document.getElementById('notes').value.trim();
+            
             // Validierung
             if (!name || !ingredients || !directions) {
-                showError('Bitte fülle alle Pflichtfelder aus.');
+                showError('Bitte fülle alle Pflichtfelder (*) aus.');
                 return;
             }
             
+            // Bild verarbeiten (falls vorhanden)
+            let imageBase64 = null;
+            if (recipePhoto) {
+                imageBase64 = await convertImageToBase64(recipePhoto);
+            }
+            
             // YML-Datei erstellen
-            const ymlContent = createYML(name, ingredients, directions);
+            const ymlContent = createYML(name, ingredients, directions, servings, prepTime, cookTime, categories, source, notes, imageBase64);
             
             // Share-Funktion nutzen
             await shareFile(ymlContent, name);
         });
         
-        function createYML(name, ingredients, directions) {
+        async function convertImageToBase64(file) {
+            return new Promise((resolve, reject) => {
+                // Bild auf max 280x280 reduzieren (Paprika-Empfehlung)
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        
+                        // Berechne neue Dimensionen (max 280x280, Seitenverhältnis behalten)
+                        let width = img.width;
+                        let height = img.height;
+                        const maxSize = 280;
+                        
+                        if (width > height) {
+                            if (width > maxSize) {
+                                height = Math.round((height * maxSize) / width);
+                                width = maxSize;
+                            }
+                        } else {
+                            if (height > maxSize) {
+                                width = Math.round((width * maxSize) / height);
+                                height = maxSize;
+                            }
+                        }
+                        
+                        canvas.width = width;
+                        canvas.height = height;
+                        ctx.drawImage(img, 0, 0, width, height);
+                        
+                        // Als JPEG mit 80% Qualität
+                        const base64 = canvas.toDataURL('image/jpeg', 0.8).split(',')[1];
+                        resolve(base64);
+                    };
+                    img.onerror = reject;
+                    img.src = e.target.result;
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+        
+        function createYML(name, ingredients, directions, servings, prepTime, cookTime, categories, source, notes, imageBase64) {
             // YAML-Format für Paprika
             let yml = `name: ${name}\n`;
+            
+            // Optionale Felder
+            if (servings) {
+                yml += `servings: ${servings}\n`;
+            }
+            
+            if (prepTime) {
+                yml += `prep_time: ${prepTime}\n`;
+            }
+            
+            if (cookTime) {
+                yml += `cook_time: ${cookTime}\n`;
+            }
+            
+            if (categories) {
+                // Kategorien als Array formatieren
+                const catArray = categories.split(',').map(c => c.trim()).filter(c => c.length > 0);
+                if (catArray.length > 0) {
+                    yml += `categories: [${catArray.join(', ')}]\n`;
+                }
+            }
+            
+            if (source) {
+                yml += `source: ${source}\n`;
+            }
+            
             yml += `ingredients: |\n`;
             
             // Zutaten formatieren
@@ -576,6 +1045,24 @@
             directionLines.forEach(line => {
                 yml += `  ${line.trim()}\n`;
             });
+            
+            if (notes) {
+                yml += `notes: |\n`;
+                const noteLines = notes.split('\n').filter(line => line.trim());
+                noteLines.forEach(line => {
+                    yml += `  ${line.trim()}\n`;
+                });
+            }
+            
+            // Bild einbetten (falls vorhanden)
+            if (imageBase64) {
+                yml += `photo: |\n`;
+                // Base64 in 76-Zeichen-Blöcke aufteilen (YAML-Standard)
+                const chunks = imageBase64.match(/.{1,76}/g) || [];
+                chunks.forEach(chunk => {
+                    yml += `  ${chunk}\n`;
+                });
+            }
             
             return yml;
         }

@@ -576,6 +576,10 @@
             <button type="submit" class="button" id="shareButton">
                 📤 Als YML-Datei teilen
             </button>
+            
+            <button type="button" class="button" onclick="resetForm()" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); margin-top: 10px; box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);">
+                🔄 Alles zurücksetzen
+            </button>
         </form>
         
         <div class="success-message" id="successMessage">
@@ -827,6 +831,37 @@
             
             // Focus zurück auf Textarea
             textarea.focus();
+        }
+        
+        function resetForm() {
+            if (confirm('Wirklich alle Felder zurücksetzen? Nicht gespeicherte Daten gehen verloren!')) {
+                // Formular zurücksetzen
+                document.getElementById('recipeForm').reset();
+                
+                // Screenshot entfernen
+                if (screenshotForOCR) {
+                    removeImage();
+                }
+                
+                // Foto entfernen
+                if (recipePhoto) {
+                    removePhoto();
+                }
+                
+                // Rohtext ausblenden
+                document.getElementById('rawTextContainer').classList.remove('visible');
+                document.getElementById('rawText').value = '';
+                
+                // Quelle wieder auf "Instagram" setzen (wird durch reset gelöscht)
+                document.getElementById('source').value = 'Instagram';
+                
+                // Variablen zurücksetzen
+                recognizedText = '';
+                screenshotForOCR = null;
+                recipePhoto = null;
+                
+                showSuccess('Alle Felder wurden zurückgesetzt!');
+            }
         }
         
         function analyzeAndFillRecipe(text) {
